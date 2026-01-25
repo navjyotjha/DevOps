@@ -1,0 +1,241 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>MyBank - Secure Online Banking</title>
+  <style>
+    /* Reset */
+    * { margin:0; padding:0; box-sizing:border-box; }
+
+    body {
+      font-family: 'Segoe UI', Arial, sans-serif;
+      background-color: #f4f4f4;
+      color: #333;
+      line-height: 1.6;
+    }
+
+    header {
+      background: linear-gradient(90deg, #004080, #0066cc);
+      color: white;
+      padding: 20px 40px;
+      text-align: center;
+      box-shadow: 0 2px 5px rgba(0,0,0,0.2);
+    }
+
+    nav {
+      background: #003366;
+      padding: 12px;
+      text-align: center;
+      position: sticky;
+      top: 0;
+      z-index: 1000;
+    }
+    nav a {
+      color: white;
+      margin: 0 20px;
+      text-decoration: none;
+      font-weight: bold;
+      transition: color 0.3s;
+    }
+    nav a:hover {
+      color: #ffcc00;
+    }
+
+    .hero {
+      background: url('bank-building.jpg') no-repeat center center/cover;
+      color: white;
+      text-align: center;
+      padding: 120px 20px;
+      position: relative;
+    }
+    .hero::after {
+      content: "";
+      position: absolute;
+      top:0; left:0; right:0; bottom:0;
+      background: rgba(0,0,0,0.4);
+    }
+    .hero h1, .hero p, .hero button {
+      position: relative;
+      z-index: 1;
+    }
+    .hero h1 {
+      font-size: 3.5em;
+      margin-bottom: 10px;
+      animation: fadeInDown 1.5s ease;
+    }
+    .hero p {
+      font-size: 1.3em;
+      margin-bottom: 20px;
+      animation: fadeInUp 2s ease;
+    }
+    .hero button {
+      padding: 12px 25px;
+      font-size: 16px;
+      background:#ffcc00;
+      border:none;
+      border-radius:5px;
+      cursor:pointer;
+      transition: transform 0.3s;
+    }
+    .hero button:hover {
+      transform: scale(1.1);
+    }
+
+    @keyframes fadeInDown {
+      from { opacity:0; transform: translateY(-30px); }
+      to { opacity:1; transform: translateY(0); }
+    }
+    @keyframes fadeInUp {
+      from { opacity:0; transform: translateY(30px); }
+      to { opacity:1; transform: translateY(0); }
+    }
+
+    .container {
+      display: flex;
+      justify-content: space-around;
+      padding: 50px 20px;
+      background: white;
+      flex-wrap: wrap;
+    }
+    .card {
+      background: #e6f0ff;
+      padding: 25px;
+      border-radius: 10px;
+      width: 30%;
+      min-width: 250px;
+      text-align: center;
+      margin: 15px;
+      box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+      transition: transform 0.3s, box-shadow 0.3s;
+    }
+    .card:hover {
+      transform: translateY(-10px);
+      box-shadow: 0 8px 16px rgba(0,0,0,0.2);
+    }
+    .card h2 {
+      color: #004080;
+      margin-bottom: 10px;
+    }
+
+    footer {
+      background: #003366;
+      color: white;
+      text-align: center;
+      padding: 20px;
+      margin-top: 30px;
+    }
+
+    /* Modal styles */
+    .modal {
+      display: none;
+      position: fixed;
+      z-index: 2000;
+      left: 0; top: 0;
+      width: 100%; height: 100%;
+      background: rgba(0,0,0,0.6);
+      justify-content: center;
+      align-items: center;
+    }
+    .modal-content {
+      background: white;
+      padding: 30px;
+      border-radius: 8px;
+      width: 300px;
+      text-align: center;
+      animation: zoomIn 0.5s ease;
+    }
+    @keyframes zoomIn {
+      from { transform: scale(0.7); opacity:0; }
+      to { transform: scale(1); opacity:1; }
+    }
+    .close-btn {
+      background: #004080;
+      color: white;
+      border: none;
+      padding: 10px 20px;
+      margin-top: 15px;
+      cursor: pointer;
+      border-radius: 5px;
+    }
+  </style>
+</head>
+<body>
+
+  <header>
+    <h1>MyBank</h1>
+    <p>Secure. Reliable. Trusted Banking.</p>
+  </header>
+
+  <nav>
+    <a href="#">Home</a>
+    <a href="#">Accounts</a>
+    <a href="#">Loans</a>
+    <a href="#">Services</a>
+    <a href="#">Contact</a>
+    <a href="#" id="loginBtn">Login</a>
+  </nav>
+
+  <section class="hero">
+    <h1>Welcome to MyBank</h1>
+    <p>Your financial partner for life</p>
+    <button id="openAccountBtn">Open an Account</button>
+  </section>
+
+  <section class="container">
+    <div class="card">
+      <h2>Personal Banking</h2>
+      <p>Manage savings, checking, and deposits with ease.</p>
+    </div>
+    <div class="card">
+      <h2>Business Banking</h2>
+      <p>Solutions for SMEs and corporate clients.</p>
+    </div>
+    <div class="card">
+      <h2>Loans & Credit</h2>
+      <p>Flexible loan options to meet your needs.</p>
+    </div>
+  </section>
+
+  <footer>
+    <p>&copy; 2026 MyBank. All rights reserved.</p>
+  </footer>
+
+  <!-- Modal -->
+  <div class="modal" id="loginModal">
+    <div class="modal-content">
+      <h2>Login</h2>
+      <input type="text" placeholder="Username" style="width:100%; padding:8px; margin:10px 0;">
+      <input type="password" placeholder="Password" style="width:100%; padding:8px; margin:10px 0;">
+      <button class="close-btn" id="closeModal">Close</button>
+    </div>
+  </div>
+
+  <script>
+    // Modal functionality
+    const loginBtn = document.getElementById('loginBtn');
+    const loginModal = document.getElementById('loginModal');
+    const closeModal = document.getElementById('closeModal');
+
+    loginBtn.addEventListener('click', () => {
+      loginModal.style.display = 'flex';
+    });
+
+    closeModal.addEventListener('click', () => {
+      loginModal.style.display = 'none';
+    });
+
+    window.addEventListener('click', (e) => {
+      if (e.target === loginModal) {
+        loginModal.style.display = 'none';
+      }
+    });
+
+    // Example JS: Open Account button alert
+    document.getElementById('openAccountBtn').addEventListener('click', () => {
+      alert('Redirecting to account opening form...');
+    });
+  </script>
+
+</body>
+</html>
